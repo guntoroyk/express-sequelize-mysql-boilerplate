@@ -4,8 +4,8 @@ import auth from '~/api/middlewares/authentication';
 
 const router = express.Router();
 
-router.use(auth.authenticate);
+// router.use(auth.authenticate);
 
-router.get('/', auth.authorize('admin,user'), UserController.index);
+router.get('/', UserController.index);
 
 export default router;

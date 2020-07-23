@@ -7,7 +7,6 @@ import logger from './winston/get-default-logger';
 
 const db = {};
 
-// connect to mysql testDb
 const sequelizeOptions = {
     dialect: 'mysql',
     port: config.mysql.port,
@@ -18,7 +17,12 @@ const sequelizeOptions = {
         idle: 10000,
     },
     logging: false,
-    underscored: true,
+    // defining naming strategies to underscored
+    define: {
+        underscored: true,
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
     ...(config.mysql.ssl && {
         ssl: config.mysql.ssl,
     }),

@@ -3,20 +3,17 @@ import Joi from '@hapi/joi';
 export default {
     authLogin: {
         body: Joi.object({
-            nopeg: Joi.string().required(),
+            email: Joi.string().email().required(),
             password: Joi.string().required(),
         }),
     },
 
-    createCity: {
+    createUser: {
         body: Joi.object({
-            name: Joi.string().required(),
-        }),
-    },
-
-    updateCity: {
-        body: Joi.object({
-            name: Joi.string().required(),
+            first_name: Joi.string().required(),
+            last_name: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().min(8).required(),
         }),
     },
 };

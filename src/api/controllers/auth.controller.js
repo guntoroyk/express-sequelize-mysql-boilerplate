@@ -3,6 +3,7 @@ import APIError from '~/api/helpers/APIError';
 import db from '~/config/sequelize';
 import bcrypt from '~/api/helpers/bcrypt';
 import jwt from '~/api/helpers/jwt';
+import logger from '~/config/winston/get-default-logger';
 
 const { User } = db;
 
@@ -12,6 +13,8 @@ class AuthController {
 
         try {
             const user = await User.findOne({ where: { email } });
+
+            logger.info(user);
 
             if (!user) {
                 const err = new APIError(
