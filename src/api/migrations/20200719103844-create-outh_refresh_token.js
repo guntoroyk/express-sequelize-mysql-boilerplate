@@ -1,35 +1,36 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('users', {
+        await queryInterface.createTable('oauth_refresh_tokens', {
             id: {
                 allowNull: false,
                 primaryKey: true,
+                type: Sequelize.STRING,
+            },
+            oauth_client_id: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                references: {
+                    model: 'oauth_clients',
+                    key: 'id',
+                },
+            },
+            user_id: {
                 type: Sequelize.UUID,
-            },
-            first_name: {
                 allowNull: false,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
+            },
+            token: {
                 type: Sequelize.STRING,
             },
-            last_name: {
-                type: Sequelize.STRING,
+            expires_at: {
+                type: Sequelize.DATE,
             },
-            email: {
-                allowNull: false,
-                type: Sequelize.STRING,
-                unique: true,
-            },
-            password: {
-                allowNull: false,
-                type: Sequelize.STRING,
-            },
-            role: {
-                type: Sequelize.ENUM('admin', 'user'),
-                defaultValue: 'user'
-            },
-            scope: {
-                type: Sequelize.STRING,
-                defaultValue: 'default'
+            revoked_at: {
+                type: Sequelize.DATE,
             },
             created_at: {
                 allowNull: false,
@@ -42,6 +43,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('users');
+        await queryInterface.dropTable('oauth_refresh_tokens');
     },
 };

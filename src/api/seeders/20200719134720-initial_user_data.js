@@ -22,6 +22,7 @@ module.exports = {
                     email: 'admin.01@mail.com',
                     password: bcrypt.hashPassword('admin.01'),
                     role: 'admin',
+                    scope: 'default',
                     created_at: new Date(),
                     updated_at: new Date(),
                 },

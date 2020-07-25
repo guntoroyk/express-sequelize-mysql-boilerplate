@@ -13,6 +13,12 @@ const schema = Joi.object({
     JWT_SECRET: Joi.string()
         .required()
         .description('JWT Secret required to sign'),
+    JWT_EXPIRATION: Joi.number()
+        .required()
+        .description('JWT Expiration'),
+    OAUTH_REFRESH_EXPIRATION: Joi.number()
+        .required()
+        .description('Refresh Token Expiration'),
     OTP_SECRET: Joi.string()
         .required()
         .description('OTP Secret to generate code to access class'),
@@ -63,6 +69,8 @@ const config = {
     port: envVars.PORT,
     apiVersion: envVars.API_VERSION,
     jwtSecret: envVars.JWT_SECRET,
+    jwtExpiration: envVars.JWT_EXPIRATION,
+    oauthRefreshExpiration: envVars.OAUTH_REFRESH_EXPIRATION,
     otpSecret: envVars.OTP_SECRET,
     SSL_KEY_PATH: envVars.SSL_KEY_PATH,
     SSL_CERT_PATH: envVars.SSL_CERT_PATH,

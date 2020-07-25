@@ -1,4 +1,5 @@
 import httpStatus from 'http-status';
+import uniqid from 'uniqid';
 import APIError from '~/api/helpers/APIError';
 import db from '~/config/sequelize';
 import bcrypt from '~/api/helpers/bcrypt';
@@ -37,18 +38,24 @@ class AuthController {
             }
 
             const payload = {
-                id: user.id,
-                first_name: user.first_name,
-                last_name: user.last_name,
-                email: user.email,
-                role: user.role,
+                id: uniqid(),
+                user: {
+                    id: user.id,
+                    role: user.role,
+                }
             };
 
             const token = jwt.generateToken(payload);
 
             return res.status(200).json({
-                user: payload,
                 token,
+                user: {
+                    id: user.id,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    email: user.email,
+                    role: user.role,
+                },
             });
         } catch (err) {
             return next(err);

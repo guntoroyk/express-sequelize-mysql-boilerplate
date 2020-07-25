@@ -1,35 +1,30 @@
 'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        await queryInterface.createTable('users', {
+        await queryInterface.createTable('oauth_clients', {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID,
-            },
-            first_name: {
-                allowNull: false,
                 type: Sequelize.STRING,
             },
-            last_name: {
+            name: {
                 type: Sequelize.STRING,
             },
-            email: {
-                allowNull: false,
-                type: Sequelize.STRING,
-                unique: true,
-            },
-            password: {
-                allowNull: false,
+            secret: {
                 type: Sequelize.STRING,
             },
-            role: {
-                type: Sequelize.ENUM('admin', 'user'),
-                defaultValue: 'user'
+            redirect_uri: {
+                type: Sequelize.STRING,
+            },
+            grants: {
+                type: Sequelize.STRING,
             },
             scope: {
                 type: Sequelize.STRING,
-                defaultValue: 'default'
+                defaultValue: 'default' 
+            },
+            revoked_at: {
+                type: Sequelize.DATE,
             },
             created_at: {
                 allowNull: false,
@@ -42,6 +37,6 @@ module.exports = {
         });
     },
     down: async (queryInterface, Sequelize) => {
-        await queryInterface.dropTable('users');
+        await queryInterface.dropTable('oauth_clients');
     },
 };

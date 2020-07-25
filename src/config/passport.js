@@ -11,13 +11,14 @@ const jwtOptions = {
 
 const jwt = async (payload, done) => {
     try {
-        const user = await User.findOne({ where: { id: payload.id } });
+        const user = await User.findOne({ where: { id: payload.user.id } });
 
         if (user) {
             return done(null, user, payload);
         }
         return done(null, false);
     } catch (err) {
+        console.log('error jwt', JSON.stringify(err, null, 2))
         return done(err, false);
     }
 };

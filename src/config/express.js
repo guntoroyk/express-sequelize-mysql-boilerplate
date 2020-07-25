@@ -68,6 +68,7 @@ app.use(`${baseUrl}`, routes);
 
 // if error is not an instanceOf APIError, convert it.
 app.use((err, req, res, next) => {
+    // error from express-validation
     if (err instanceof expressValidation.ValidationError) {
         const unifiedErrorMessage = err.details.body
             .map((error) => error.message)
@@ -75,6 +76,7 @@ app.use((err, req, res, next) => {
         const error = new APIError(unifiedErrorMessage, err.statusCode, true);
         return next(error);
     }
+    // error from sequelize
     if (err.name === 'SequelizeValidationError') {
         const unifiedErrorMessage = err.errors
             .map((error) => error.message)
