@@ -5,7 +5,10 @@
     "main": "index.js",
     "scripts": {
         "prestart": "npm run db:create && npm run db:migrate && npm run db:seed",
-        "start": "cross-env NODE_ENV=production pm2 start --interpreter babel-node src/index.js",
+        "start": "node build/index.js",
+        "start:pm2": "cross-env NODE_ENV=production pm2 start --interpreter babel-node src/index.js",
+        "build": "npm run clean && mkdir -p public/images && babel src/ -d build/",
+        "clean": "rm -rf build/",
         "serve": "nodemon src/index.js --watch src/ --exec babel-node",
         "db:create": "node ./node_modules/.bin/sequelize-cli db:create",
         "db:migrate": "node ./node_modules/.bin/sequelize-cli db:migrate",

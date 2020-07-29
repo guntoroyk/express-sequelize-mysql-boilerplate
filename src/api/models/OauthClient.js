@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'OauthClient',
+            modelName: 'oauthClient',
         }
     );
 

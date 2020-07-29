@@ -1,6 +1,6 @@
 import db from '~/config/sequelize';
 
-const { User } = db;
+const { user: User } = db;
 
 class UserController {
     static async index(req, res, next) {

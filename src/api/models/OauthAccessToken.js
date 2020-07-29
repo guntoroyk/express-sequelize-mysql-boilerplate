@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'OauthAccessToken',
+            modelName: 'oauthAccessToken',
         }
     );
 
     OauthAccessToken.associate = function (models) {
         // Association can be defined here
-        OauthAccessToken.belongsTo(models.OauthClient)
-        OauthAccessToken.belongsTo(models.User)
+        OauthAccessToken.belongsTo(models.oauthClient)
+        OauthAccessToken.belongsTo(models.user)
     };
 
     OauthAccessToken.beforeCreate((oauthAccessToken) => {

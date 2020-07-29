@@ -4,7 +4,12 @@ import config from '~/config/config';
 import db from '~/config/sequelize';
 import bcrypt from '~/api/helpers/bcrypt';
 
-const { OauthClient, OauthAccessToken, OauthRefreshToken, User } = db;
+const { 
+    oauthClient: OauthClient, 
+    oauthAccessToken: OauthAccessToken, 
+    oauthRefreshToken: OauthRefreshToken, 
+    user: User 
+} = db;
 
 class OauthModel {
     static async getAccessToken(accessToken) {

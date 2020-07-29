@@ -12,9 +12,5 @@ router.post(
     validate(paramValidation.authLogin),
     AuthController.login
 );
-router.post(
-    '/oauth/token',
-    OauthController.handle
-);
 
 export default router;

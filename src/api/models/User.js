@@ -18,12 +18,13 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            modelName: 'User',
+            modelName: 'user',
         }
     );
 
     User.associate = function (models) {
         // Association can be defined here
+        User.hasMany(models.order);
     };
 
     User.beforeCreate((user) => {

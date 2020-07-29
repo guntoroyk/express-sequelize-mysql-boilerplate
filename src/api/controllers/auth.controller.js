@@ -6,7 +6,7 @@ import bcrypt from '~/api/helpers/bcrypt';
 import jwt from '~/api/helpers/jwt';
 import logger from '~/config/winston/get-default-logger';
 
-const { User } = db;
+const { user: User } = db;
 
 class AuthController {
     static async login(req, res, next) {
