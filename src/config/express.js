@@ -70,10 +70,23 @@ app.use(`${baseUrl}`, routes);
 app.use((err, req, res, next) => {
     // error from express-validation
     if (err instanceof expressValidation.ValidationError) {
-        const unifiedErrorMessage = err.details.body
+        let messages = '';
+        const errorDetails = err.details;
+        const params = Object.keys(errorDetails);  // body, query, etc
+        
+        for (let i = 0; i < params.length; i++) {
+            const unifiedErrorMessage = errorDetails[params[i]]
             .map((error) => error.message)
             .join(' and ');
-        const error = new APIError(unifiedErrorMessage, err.statusCode, true);
+
+            messages += unifiedErrorMessage;
+
+            if (i !== params.length - 1) {
+                messages += ' and '
+            }
+        }
+
+        const error = new APIError(messages, err.statusCode, true);
         return next(error);
     }
     // error from sequelize
