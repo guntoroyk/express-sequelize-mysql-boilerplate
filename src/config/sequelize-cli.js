@@ -4,7 +4,7 @@
 
 require('dotenv').config();
 
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 
 const schema = Joi.object({
     UNIQUE_NAME_MYSQL_DB: Joi.string()

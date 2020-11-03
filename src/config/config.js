@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 
 // require and configure dotenv, will load vars in .env in PROCESS.ENV
 require('dotenv').config();

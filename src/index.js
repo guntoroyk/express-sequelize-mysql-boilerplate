@@ -1,11 +1,4 @@
-import { loggers } from 'winston';
-import config from './config/config';
 import app from './config/express';
-
-const debug = require('debug')('omorfia-backend:index');
-
-// Get default logger
-const logger = loggers.get(config.loggerName);
 
 Promise = require('bluebird');
 
