@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('oauth_access_tokens', {
@@ -45,6 +44,7 @@ module.exports = {
             },
         });
     },
+    // eslint-disable-next-line
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable('oauth_access_tokens');
     },

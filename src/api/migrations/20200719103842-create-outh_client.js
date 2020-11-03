@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('oauth_clients', {
@@ -21,7 +20,7 @@ module.exports = {
             },
             scope: {
                 type: Sequelize.STRING,
-                defaultValue: 'default' 
+                defaultValue: 'default',
             },
             revoked_at: {
                 type: Sequelize.DATE,
@@ -39,6 +38,7 @@ module.exports = {
             },
         });
     },
+    // eslint-disable-next-line
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable('oauth_clients');
     },

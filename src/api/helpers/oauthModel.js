@@ -4,17 +4,18 @@ import config from '~/config/config';
 import db from '~/config/sequelize';
 import bcrypt from '~/api/helpers/bcrypt';
 
-const { 
-    oauthClient: OauthClient, 
-    oauthAccessToken: OauthAccessToken, 
-    oauthRefreshToken: OauthRefreshToken, 
-    user: User 
+const {
+    oauthClient: OauthClient,
+    oauthAccessToken: OauthAccessToken,
+    oauthRefreshToken: OauthRefreshToken,
+    user: User,
 } = db;
 
 class OauthModel {
     static async getAccessToken(accessToken) {
+        let decoded;
         try {
-            var decoded = jwt.verify(accessToken, config.jwtSecret, {
+            decoded = jwt.verify(accessToken, config.jwtSecret, {
                 ignoreExpiration: true,
             });
         } catch (err) {
@@ -27,16 +28,15 @@ class OauthModel {
 
             if (oauthAccessToken) {
                 return {
-                    accessToken: accessToken,
+                    accessToken,
                     accessTokenExpiresAt: oauthAccessToken.expires_at,
                     user: decoded.user,
                     client: {
                         id: oauthAccessToken.oauth_client_id,
                     },
                 };
-            } else {
-                return false;
             }
+            return false;
         } catch (err) {
             return false;
         }
@@ -59,31 +59,31 @@ class OauthModel {
                         id: oauthRefreshToken.oauth_client_id,
                     },
                 };
-            } else {
-                return false;
             }
+            return false;
         } catch (err) {
             return false;
         }
     }
 
-    static async generateAccessToken(client, user, scope) {
+    // eslint-disable-next-line
+    static async generateAccessToken(_client, user, _scope) {
         try {
             const aUser = await User.findOne({ where: { id: user.id } });
 
             if (aUser) {
-                let data = {
+                const data = {
                     id: aUser.id,
                     role: aUser.role,
                 };
 
-                let options = {
+                const options = {
                     algorithm: 'HS256',
                     // subject: client.id,
                     expiresIn: config.jwtExpiration,
                 };
 
-                let token = jwt.sign(
+                const token = jwt.sign(
                     {
                         id: uniqid(),
                         user: data,
@@ -92,29 +92,24 @@ class OauthModel {
                     options
                 );
                 return token;
-            } else {
-                return false;
             }
+            return false;
         } catch (err) {
             return false;
         }
     }
 
     static async saveToken(token, client, user) {
-        try {
-            var decoded = jwt.verify(token.accessToken, config.jwtSecret, {
-                ignoreExpiration: true,
-            });
-            var value = {
-                id: decoded.id,
-                user_id: user.id,
-                oauth_client_id: client.id,
-                token: token.accessToken, 
-                expires_at: new Date(decoded.exp * 1000),
-            };
-        } catch (err) {
-            return false;
-        }
+        const decoded = jwt.verify(token.accessToken, config.jwtSecret, {
+            ignoreExpiration: true,
+        });
+        const value = {
+            id: decoded.id,
+            user_id: user.id,
+            oauth_client_id: client.id,
+            token: token.accessToken,
+            expires_at: new Date(decoded.exp * 1000),
+        };
 
         try {
             await OauthAccessToken.create(value);
@@ -138,49 +133,54 @@ class OauthModel {
 
     static async revokeToken(token) {
         try {
-            await OauthRefreshToken.destroy({ where: { token: token.refreshToken }});
+            await OauthRefreshToken.destroy({
+                where: { token: token.refreshToken },
+            });
             return true;
         } catch (err) {
             return false;
         }
     }
-    
-    static async getClient(clientId, clientSecret) {
 
+    static async getClient(clientId, clientSecret) {
         try {
-            const secret = clientSecret ? clientSecret : null;
-            const oauthClient = await OauthClient.findOne({ 
-                where: { 
+            const secret = clientSecret || null;
+            const oauthClient = await OauthClient.findOne({
+                where: {
                     id: clientId,
                     secret,
-                    revoked_at: null
-                }
+                    revoked_at: null,
+                },
             });
-            
+
             if (oauthClient) {
                 return {
                     id: oauthClient.id,
-                    redirectUris: oauthClient.redirect_uri ? [oauthClient.redirect_uri] : [],
+                    redirectUris: oauthClient.redirect_uri
+                        ? [oauthClient.redirect_uri]
+                        : [],
                     grants: oauthClient.grants.split(/[^a-z_]+/),
                     scope: oauthClient.scope,
                     accessTokenLifetime: config.jwtExpiration,
-                    refreshTokenLifetime: config.oauthRefreshExpiration
-                }
-            } else {
-                return false;
+                    refreshTokenLifetime: config.oauthRefreshExpiration,
+                };
             }
+            return false;
         } catch (err) {
             return false;
         }
     }
-    
-    static validateScope(user, client, scope) {
-		return (user.scope == client.scope) ? user.scope : false;
+
+    // eslint-disable-next-line
+    static validateScope(user, client, _scope) {
+        return user.scope === client.scope ? user.scope : false;
     }
-    
+
     static async getUser(username, password) {
         try {
-            const user = await User.findOne({ where: { email: username.toLowerCase() }});
+            const user = await User.findOne({
+                where: { email: username.toLowerCase() },
+            });
 
             if (user && bcrypt.comparePassword(password, user.password)) {
                 return {
@@ -189,16 +189,14 @@ class OauthModel {
                     first_name: user.first_name,
                     last_name: user.last_name,
                     role: user.role,
-                    scope: user.scope
-                }
-            } else {
-                return false;
+                    scope: user.scope,
+                };
             }
+            return false;
         } catch (err) {
             return false;
         }
-	}
+    }
 }
-
 
 export default OauthModel;

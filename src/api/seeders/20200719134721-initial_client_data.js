@@ -1,7 +1,5 @@
-'use strict';
-import config from '~/config/config';
-
 module.exports = {
+    // eslint-disable-next-line
     up: async (queryInterface, Sequelize) => {
         /**
          * Add seed commands here.
@@ -12,7 +10,7 @@ module.exports = {
          *   isBetaMember: false
          * }], {});
          */
-        let data = [];
+        const data = [];
 
         if (process.env.WEB_CLIENT_ID) {
             data.push({
@@ -30,22 +28,23 @@ module.exports = {
                 id: process.env.ANDROID_CLIENT_ID,
                 name: 'Android Client',
                 secret: process.env.ANDROID_CLIENT_SECRET,
-                grants: 'password, refresh_token'
+                grants: 'password, refresh_token',
             });
         }
-    
+
         if (process.env.IOS_CLIENT_ID) {
             data.push({
                 id: process.env.IOS_CLIENT_ID,
                 name: 'iOS Client',
                 secret: process.env.IOS_CLIENT_SECRET,
-                grants: 'password, refresh_token'
+                grants: 'password, refresh_token',
             });
         }
 
         await queryInterface.bulkInsert('oauth_clients', data, {});
     },
 
+    // eslint-disable-next-line
     down: async (queryInterface, Sequelize) => {
         /**
          * Add commands to revert seed here.

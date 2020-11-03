@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
 
     OauthAccessToken.associate = function (models) {
         // Association can be defined here
-        OauthAccessToken.belongsTo(models.oauthClient)
-        OauthAccessToken.belongsTo(models.user)
+        OauthAccessToken.belongsTo(models.oauthClient);
+        OauthAccessToken.belongsTo(models.user);
     };
 
     OauthAccessToken.beforeCreate((oauthAccessToken) => {

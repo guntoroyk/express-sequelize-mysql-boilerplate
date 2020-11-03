@@ -22,13 +22,13 @@ const sequelizeOptions = {
     seederStorageTableName: 'sequelize_data',
     define: {
         // defining naming strategies to underscored
-        underscored: true, 
+        underscored: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at',
         paranoid: true, // soft delete
     },
     // set timezone to Asia/Jakarta
-    timezone: '+07:00', 
+    timezone: '+07:00',
     dialectOptions: {
         dateStrings: true,
         typeCast: true,

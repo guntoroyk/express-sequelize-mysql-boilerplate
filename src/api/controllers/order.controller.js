@@ -1,6 +1,6 @@
 import db from '~/config/sequelize';
 
-const { order: Order, user: User, product: Product } = db;
+const { order: Order, product: Product } = db;
 
 class OrderController {
     static async index(req, res, next) {
@@ -9,7 +9,7 @@ class OrderController {
                 include: [
                     // { model: User },
                     { model: Product },
-                ]
+                ],
             });
 
             return res.status(200).json(orders);

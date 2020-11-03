@@ -42,7 +42,7 @@ class AuthController {
                 user: {
                     id: user.id,
                     role: user.role,
-                }
+                },
             };
 
             const token = jwt.generateToken(payload);

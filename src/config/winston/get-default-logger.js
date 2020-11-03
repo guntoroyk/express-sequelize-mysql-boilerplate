@@ -1,5 +1,5 @@
 import { loggers } from 'winston';
-import config from '../config';
+import config from '~/config/config';
 import createLoggerWithOptions from './loggers-container-accessor';
 
 const loggerOptions = {

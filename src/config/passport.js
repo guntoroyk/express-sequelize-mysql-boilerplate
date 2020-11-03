@@ -1,6 +1,7 @@
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import config from './config';
 import db from './sequelize';
+import logger from '~/config/winston/get-default-logger';
 
 const { user: User } = db;
 
@@ -18,7 +19,7 @@ const jwt = async (payload, done) => {
         }
         return done(null, false);
     } catch (err) {
-        console.log('error jwt', JSON.stringify(err, null, 2))
+        logger.error(JSON.stringify(err, null, 2));
         return done(err, false);
     }
 };

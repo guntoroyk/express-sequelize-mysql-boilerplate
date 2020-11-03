@@ -5,8 +5,8 @@ import APIError from '~/api/helpers/APIError';
 import logger from '~/config/winston/get-default-logger';
 
 const oauth = new OauthServer({
-    model: OauthModel
-})
+    model: OauthModel,
+});
 
 class OauthController {
     static async handle(req, res, next) {
@@ -20,11 +20,15 @@ class OauthController {
 
             return res.status(200).json(snakeCase(token));
         } catch (err) {
-            const error = new APIError(err.message, err.statusCode || 500, true);
-            logger.info(JSON.stringify(err, null, 2))
+            const error = new APIError(
+                err.message,
+                err.statusCode || 500,
+                true
+            );
+            logger.info(JSON.stringify(err, null, 2));
             return next(error);
         }
     }
-};
+}
 
 export default OauthController;

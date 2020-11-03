@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('orders', {
@@ -66,6 +65,7 @@ module.exports = {
             },
         });
     },
+    // eslint-disable-next-line
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable('orders');
     },

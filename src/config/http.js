@@ -18,14 +18,19 @@ export default (app) => {
             ca: [fs.readFileSync(config.SSL_CA_BUNDLE_PATH, 'utf8')],
         };
 
-        if (config.SSL_PASSPHRASE) credentials.passphrase = config.SSL_PASSPHRASE;
+        if (config.SSL_PASSPHRASE)
+            credentials.passphrase = config.SSL_PASSPHRASE;
 
-        server = (app) ? https.createServer(credentials, app) : https.createServer(credentials);
+        server = app
+            ? https.createServer(credentials, app)
+            : https.createServer(credentials);
     } else {
-        server = (app) ? http.createServer(app) : http.createServer();
+        server = app ? http.createServer(app) : http.createServer();
     }
 
     return server.listen(config.port, () => {
-        logger.info(`The application has started on port ${config.port} (${config.env})`); // eslint-disable-line no-console
+        logger.info(
+            `The application has started on port ${config.port} (${config.env})`
+        ); // eslint-disable-line no-console
     });
 };

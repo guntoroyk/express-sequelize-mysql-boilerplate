@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
     up: async (queryInterface, Sequelize) => {
         await queryInterface.createTable('products', {
@@ -26,7 +25,7 @@ module.exports = {
             },
             published: {
                 allowNull: false,
-                type: Sequelize.BOOLEAN
+                type: Sequelize.BOOLEAN,
             },
             created_at: {
                 allowNull: false,
@@ -41,6 +40,7 @@ module.exports = {
             },
         });
     },
+    // eslint-disable-next-line
     down: async (queryInterface, Sequelize) => {
         await queryInterface.dropTable('products');
     },

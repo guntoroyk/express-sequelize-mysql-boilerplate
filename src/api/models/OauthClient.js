@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
+    // eslint-disable-next-line
     OauthClient.associate = function (models) {
         // Association can be defined here
     };

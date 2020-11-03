@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
 
     OauthRefreshToken.associate = function (models) {
         // Association can be defined here  OauthAccessToken.belongsTo(models.OauthClient)
-        OauthRefreshToken.belongsTo(models.oauthClient)
-        OauthRefreshToken.belongsTo(models.user)
+        OauthRefreshToken.belongsTo(models.oauthClient);
+        OauthRefreshToken.belongsTo(models.user);
     };
 
     OauthRefreshToken.beforeCreate((oauthRefreshToken) => {

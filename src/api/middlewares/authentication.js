@@ -36,7 +36,7 @@ const authorize = (roles) => {
 
     return async (req, res, next) => {
         const { role } = req;
-        let apiError = new APIError(
+        const apiError = new APIError(
             'Role not allowed',
             httpStatus.UNAUTHORIZED,
             true

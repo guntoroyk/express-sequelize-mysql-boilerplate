@@ -8,12 +8,12 @@ import expressWinston from 'express-winston';
 import expressValidation from 'express-validation';
 import helmet from 'helmet';
 import passport from 'passport';
+import winston from 'winston';
 import config from './config';
 import strategies from './passport';
 import logger from './winston/get-default-logger';
 import routes from '../api/routes/index.route';
-import APIError from '../api/helpers/APIError';
-import winston from 'winston';
+import APIError from '~/api/helpers/APIError';
 
 // Define default HTTP logger instance (use default logger instance)
 const winstonInstance = logger;
@@ -72,17 +72,17 @@ app.use((err, req, res, next) => {
     if (err instanceof expressValidation.ValidationError) {
         let messages = '';
         const errorDetails = err.details;
-        const params = Object.keys(errorDetails);  // body, query, etc
-        
+        const params = Object.keys(errorDetails); // body, query, etc
+
         for (let i = 0; i < params.length; i++) {
             const unifiedErrorMessage = errorDetails[params[i]]
-            .map((error) => error.message)
-            .join(' and ');
+                .map((error) => error.message)
+                .join(' and ');
 
             messages += unifiedErrorMessage;
 
             if (i !== params.length - 1) {
-                messages += ' and '
+                messages += ' and ';
             }
         }
 

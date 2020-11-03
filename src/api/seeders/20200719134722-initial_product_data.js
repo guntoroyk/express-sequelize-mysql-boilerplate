@@ -1,7 +1,5 @@
-'use strict';
-import bcrypt from '~/api/helpers/bcrypt';
-
 module.exports = {
+    // eslint-disable-next-line
     up: async (queryInterface, Sequelize) => {
         /**
          * Add seed commands here.
@@ -32,6 +30,7 @@ module.exports = {
         );
     },
 
+    // eslint-disable-next-line
     down: async (queryInterface, Sequelize) => {
         /**
          * Add commands to revert seed here.
