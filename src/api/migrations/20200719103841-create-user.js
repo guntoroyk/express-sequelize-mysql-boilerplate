@@ -25,11 +25,11 @@ module.exports = {
             },
             role: {
                 type: Sequelize.ENUM('admin', 'user'),
-                defaultValue: 'user'
+                defaultValue: 'user',
             },
             scope: {
                 type: Sequelize.STRING,
-                defaultValue: 'default'
+                defaultValue: 'default',
             },
             created_at: {
                 allowNull: false,
@@ -37,6 +37,9 @@ module.exports = {
             },
             updated_at: {
                 allowNull: false,
+                type: Sequelize.DATE,
+            },
+            deleted_at: {
                 type: Sequelize.DATE,
             },
         });

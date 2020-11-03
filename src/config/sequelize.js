@@ -18,13 +18,18 @@ const sequelizeOptions = {
     },
     logging: false,
     migrationStorageTableName: 'sequelize_meta',
-    // seederStorage: 'sequelize',
-    // seederStorageTableName: 'sequelize_data',
-    // defining naming strategies to underscored
     define: {
-        underscored: true,
+        // defining naming strategies to underscored
+        underscored: true, 
         createdAt: 'created_at',
         updatedAt: 'updated_at',
+        paranoid: true, // soft delete
+    },
+    // set timezone to Asia/Jakarta
+    timezone: '+07:00', 
+    dialectOptions: {
+        dateStrings: true,
+        typeCast: true,
     },
     ...(config.mysql.ssl && {
         ssl: config.mysql.ssl,
