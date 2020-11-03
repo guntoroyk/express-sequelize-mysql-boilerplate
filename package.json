@@ -4,7 +4,7 @@
     "description": "Express boilerplate using Sequelize ORM and MySQL/MariaDB database",
     "main": "index.js",
     "scripts": {
-        "prestart": "npm run db:create && npm run db:migrate && npm run db:seed",
+        "prestart": "npm run db:create && npm run db:migrate && npm run db:seed && npm run build",
         "start": "node build/index.js",
         "start:pm2": "cross-env NODE_ENV=production pm2 start --interpreter babel-node src/index.js",
         "build": "npm run clean && mkdir -p public/images && babel src/ -d build/",
@@ -23,6 +23,7 @@
         "@babel/node": "^7.10.5",
         "@babel/plugin-proposal-class-properties": "^7.10.4",
         "@babel/plugin-proposal-decorators": "^7.10.5",
+        "@babel/plugin-proposal-export-default-from": "^7.12.1",
         "@babel/plugin-transform-async-to-generator": "^7.10.4",
         "@babel/plugin-transform-runtime": "^7.10.5",
         "@babel/polyfill": "^7.10.4",

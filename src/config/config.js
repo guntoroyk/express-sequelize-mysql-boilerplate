@@ -13,15 +13,10 @@ const schema = Joi.object({
     JWT_SECRET: Joi.string()
         .required()
         .description('JWT Secret required to sign'),
-    JWT_EXPIRATION: Joi.number()
-        .required()
-        .description('JWT Expiration'),
+    JWT_EXPIRATION: Joi.number().required().description('JWT Expiration'),
     OAUTH_REFRESH_EXPIRATION: Joi.number()
         .required()
         .description('Refresh Token Expiration'),
-    OTP_SECRET: Joi.string()
-        .required()
-        .description('OTP Secret to generate code to access class'),
     UNIQUE_NAME_MYSQL_DB: Joi.string()
         .default('api')
         .description('MySQL database name'),
