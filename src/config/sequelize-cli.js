@@ -45,6 +45,8 @@ const config = {
         host: envVars.UNIQUE_NAME_MYSQL_HOST,
         port: envVars.UNIQUE_NAME_MYSQL_PORT,
         migrationStorageTableName: 'sequelize_meta',
+        seederStorage: 'sequelize',
+        seederStorageTableName: 'sequelize_data',
     },
 };
 

@@ -18,6 +18,8 @@ const sequelizeOptions = {
     },
     logging: false,
     migrationStorageTableName: 'sequelize_meta',
+    seederStorage: 'sequelize',
+    seederStorageTableName: 'sequelize_data',
     define: {
         // defining naming strategies to underscored
         underscored: true, 
